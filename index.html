@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Hearts Level 1</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            justify-content: center;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+        
+        .play-area {
+            display: flex;
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #333;
+            margin-bottom: 10px;
+        }
+        
+        .heart {
+            font-size: 2rem;
+        }
+        
+        .target-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 50px;
+            border: 2px solid #333;
+        }
+        
+        .target {
+            font-size: 2rem;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        #cssInput {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 300px;
+            height: 100px;
+        }
+        
+        #applyBtn {
+            padding: 5px 10px;
+        }
+        
+        #message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: green;
+        }
+        
+        .blurb {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="blurb">
+                <p>Welcome to Flexbox Hearts! Let's learn flexbox!<br>
+                    <code>flex-direction: ___;</code> aligns items in the flex-container.<br>
+                    <code>flex-direction: row;</code> aligns items horizontally.<br>
+                    <code>flex-direction: column;</code> aligns items vertically.<br> Align the hearts vertically and click "Apply" to see the effect.
+                </p>
+            </div>
+            <textarea id="cssInput" placeholder="e.g., flex-direction: ____;"></textarea>
+            <button id="applyBtn">Apply</button>
+            <div id="message">Congratulations! You did it! <a href="level2.html">Next Level</a></div>
+        </div>
+        <div class="game-container">
+            <div class="play-area" id="playArea">
+                <div class="heart" id="heart1">❤️</div>
+                <div class="heart" id="heart2">❤️</div>
+                <div class="heart" id="heart3">❤️</div>
+            </div>
+            <div class="target-area">
+                <div class="target">💖</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('applyBtn').addEventListener('click', () => {
+            const cssInput = document.getElementById('cssInput').value;
+            const playArea = document.getElementById('playArea');
+
+            try {
+                playArea.style.cssText = cssInput;
+                checkWinCondition();
+            } catch (error) {
+                alert('Invalid CSS property');
+            }
+        });
+
+        function checkWinCondition() {
+            const playAreaStyles = getComputedStyle(document.getElementById('playArea'));
+            const flexDirection = playAreaStyles.flexDirection;
+
+            if (flexDirection === 'column') {
+                document.getElementById('message').style.display = 'block';
+            } else {
+                document.getElementById('message').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
